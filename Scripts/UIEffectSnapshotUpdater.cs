@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.Rendering;
+using UnityEngine.Experimental.Rendering;
 
 namespace Coffee.UIExtensions
 {
@@ -203,9 +204,17 @@ namespace Coffee.UIExtensions
             // Generate RT for result.
             if (rt == null)
             {
-                rt = RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Default);
+                var descriptor = new RenderTextureDescriptor(w, h);
+                descriptor.useMipMap = false;
+                descriptor.autoGenerateMips = false;
+                descriptor.depthBufferBits = 0;
+                descriptor.msaaSamples = 1;
+                descriptor.colorFormat = RenderTextureFormat.ARGB32;
+                descriptor.graphicsFormat = GraphicsFormat.R8G8B8A8_UNorm;
+                descriptor.dimension = TextureDimension.Tex2D;
+
+                rt = RenderTexture.GetTemporary(descriptor);
                 rt.filterMode = request.filterMode;
-                rt.autoGenerateMips = false;
                 rt.wrapMode = TextureWrapMode.Clamp;
 
                 if (request.globalMode)
