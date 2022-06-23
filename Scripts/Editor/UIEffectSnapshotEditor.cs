@@ -189,7 +189,8 @@ namespace Coffee.UIExtensions.Editors
                 if (GUILayout.Button(_contentCapture, "ButtonLeft"))
                 {
                     current.Release();
-                    EditorApplication.delayCall += current.Capture;
+                    EditorApplication.delayCall += () => { current.Capture(); };
+
                 }
 
                 EditorGUI.BeginDisabledGroup(!current.capturedTexture);
