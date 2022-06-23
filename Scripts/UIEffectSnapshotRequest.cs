@@ -202,6 +202,7 @@ namespace Coffee.UIExtensions
 
         internal RenderTexture renderTexture { get; set; }
         internal bool globalMode { get; set; }
+        internal bool waitForEndFrame { get; set; }
         internal CommandBuffer commandBuffer { get; set; }
         internal Action<UIEffectSnapshotRequest> postAction { get; set; }
 
