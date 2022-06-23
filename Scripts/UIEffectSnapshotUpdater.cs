@@ -344,6 +344,11 @@ namespace Coffee.UIExtensions
         /// </summary>
         private static IEnumerator CoUpdateTextureOnNextFrame_Internal(UIEffectSnapshotRequest request)
         {
+            if (request.waitForEndFrame)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
 #if UNITY_EDITOR
             if (Application.isPlaying)
 #endif
@@ -361,8 +366,6 @@ namespace Coffee.UIExtensions
 
             if (request.postAction != null)
                 request.postAction(request);
-                
-            yield return new WaitForEndOfFrame();
         }
     }
 }
