@@ -216,9 +216,10 @@ namespace Coffee.UIExtensions
         /// <summary>
         /// Capture rendering result.
         /// </summary>
-        public void Capture()
+        public void Capture(bool waitForEndFrame = true)
         {
             request.globalMode = globalMode;
+            request.waitForEndFrame = waitForEndFrame;
             request.postAction = r =>
             {
                 texture = r.renderTexture;
